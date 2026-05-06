@@ -5,17 +5,12 @@ import path from 'path';
 const { Client } = pg;
 
 async function runSql() {
-  // Try with just the password first.
-  // The user passed [Rumina@21092006], I will assume the brackets might be literal or not.
-  // Let's assume the password is Rumina@21092006. If it fails, we will try with brackets.
-  let password = 'Rumina@21092006';
-  
   const client = new Client({
-    host: 'db.nlxfvozdoirjzhvzughw.supabase.co',
+    host: 'db.olzghrvomdyywqsdprob.supabase.co',
     port: 5432,
     database: 'postgres',
     user: 'postgres',
-    password: password,
+    password: '2846@Forge2',
     ssl: { rejectUnauthorized: false }
   });
 
@@ -42,7 +37,6 @@ async function runSql() {
     console.log('Seed data applied successfully.');
 
   } catch (err) {
-    // If it fails with password auth, print the error so we can retry with brackets
     console.error('Execution Failed:', err.message);
   } finally {
     await client.end();

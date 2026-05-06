@@ -2,14 +2,16 @@ import pg from 'pg';
 
 const { Client } = pg;
 
-const client = new Client({
-  host: 'db.nlxfvozdoirjzhvzughw.supabase.co',
+const config = {
+  host: 'db.olzghrvomdyywqsdprob.supabase.co',
   port: 5432,
   database: 'postgres',
   user: 'postgres',
-  password: 'Rumina@21092006',
+  password: '2846@Forge2',
   ssl: { rejectUnauthorized: false }
-});
+};
+
+const client = new Client(config);
 
 async function run() {
   await client.connect();
