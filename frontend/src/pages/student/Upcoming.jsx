@@ -167,7 +167,7 @@ export default function Upcoming() {
         {/* Timeline of Upcoming */}
         <div className="space-y-6">
           <h3 className="text-h2 text-primary flex items-center gap-2">
-            <Layers size={22} className="text-accent-glow" /> Scheduled Pipeline
+            Scheduled Pipeline
           </h3>
           
           <div className="space-y-4">
@@ -198,7 +198,7 @@ export default function Upcoming() {
         {/* Recent Past Context */}
         <div className="space-y-6">
           <h3 className="text-h2 text-primary flex items-center gap-2">
-            <BookOpen size={22} className="text-tertiary" /> Last Completed
+            Last Completed
           </h3>
           
           <div className="space-y-4">
@@ -223,7 +223,7 @@ export default function Upcoming() {
       </div>
 
       {/* Program Summary/Status */}
-      <div className="bg-surface bg-card-gradient border border-subtle rounded-3xl p-8 flex flex-col md:flex-row items-center gap-8 shadow-xl">
+      <div className="card-plate flex flex-col md:flex-row items-center gap-8 shadow-xl">
         <div className="w-20 h-20 bg-accent-glow/10 rounded-full flex items-center justify-center text-accent-glow shrink-0 border border-accent-glow/20">
           <Calendar size={32} />
         </div>

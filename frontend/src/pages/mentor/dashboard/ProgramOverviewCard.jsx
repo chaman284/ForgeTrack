@@ -80,7 +80,7 @@ export default function ProgramOverviewCard() {
 
   if (loading) {
     return (
-      <div className="bg-surface bg-card-gradient border border-subtle rounded-xl p-6 shadow-[var(--shadow-card)] h-full">
+      <div className="card-plate h-full">
         <h2 className="text-h3 text-secondary mb-4 flex items-center gap-2">
           <BarChart3 size={20} className="text-tertiary" /> Program Overview
         </h2>
@@ -93,14 +93,14 @@ export default function ProgramOverviewCard() {
   }
 
   return (
-    <div className="bg-surface bg-card-gradient border border-subtle rounded-xl p-6 shadow-[var(--shadow-card)] h-full flex flex-col">
+    <div className="card-plate h-full flex flex-col">
       <h2 className="text-h3 text-secondary mb-6 flex items-center gap-2">
-        <BarChart3 size={20} className="text-accent-glow" /> Program Overview
+        Program Overview
       </h2>
 
       {data && (
         <div className="flex-1 flex flex-col justify-between space-y-6">
-          <div className="flex items-center justify-between p-4 bg-surface-inset border border-default rounded-lg">
+          <div className="bg-surface-inset border border-default rounded-lg flex items-center justify-between p-4">
             <span className="text-body text-secondary">Average Attendance</span>
             <span className="text-h2 text-primary">{data.avgAttendance}%</span>
           </div>

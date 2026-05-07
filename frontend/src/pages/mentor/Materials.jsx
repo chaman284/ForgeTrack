@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../../lib/supabase';
-import { Search, Plus, Filter, MonitorPlay, FileText, Link as LinkIcon, Book, Trash2 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Search, Plus, Filter, MonitorPlay, FileText, Link as LinkIcon, Book, Trash2, Layers, Calendar, ChevronDown } from 'lucide-react';
 import Modal from '../../components/common/Modal';
 
 export default function Materials() {
@@ -157,103 +158,142 @@ export default function Materials() {
   const sortedGroups = Object.values(grouped).sort((a, b) => new Date(b.session?.date) - new Date(a.session?.date));
 
   return (
-    <div className="space-y-8 animate-in fade-in duration-500 pb-12">
-      
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
-        <div>
-          <h1 className="text-display-md text-primary font-display mb-2">Materials Library</h1>
-          <p className="text-body text-secondary">Manage and access session resources.</p>
+    <div className="max-w-[1600px] mx-auto space-y-12 animate-in fade-in duration-500 pb-12 px-4 relative overflow-hidden">
+      {/* Decorative Floating Graphics */}
+      <motion.div 
+        animate={{ y: [0, 40, 0], x: [0, 20, 0] }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-20 right-10 w-32 h-32 bg-primary-indigo/10 rounded-full blur-3xl -z-10"
+      />
+      <motion.div 
+        animate={{ y: [0, -30, 0], rotate: [0, 45, 0] }}
+        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute bottom-40 left-10 w-48 h-48 bg-accent/10 rounded-full blur-3xl -z-10"
+      />
+
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 mb-12 border-b border-white/20 pb-12">
+        <div className="space-y-4">
+
+          <div>
+            <h1 className="super-title text-text-primary flex items-center gap-4">
+
+              Library Console
+            </h1>
+          </div>
+          <p className="text-lg text-text-secondary max-w-xl font-medium leading-relaxed">
+            Manage your module resources and sync learning assets.
+          </p>
         </div>
+
         <button 
           onClick={() => setShowModal(true)}
-          className="bg-fg-primary text-void flex items-center justify-center gap-2 rounded-md px-5 py-3 font-body font-medium text-[14px] hover:bg-[#E5E5E7] transition-colors"
+          className="btn-primary h-[64px] px-10 text-lg flex items-center gap-3 shadow-2xl shadow-primary-indigo/20"
         >
-          <Plus size={18} /> Add Material
+          <Plus size={24} /> New Material
         </button>
       </div>
 
       {/* Filter Bar */}
-      <div className="flex flex-col sm:flex-row gap-4 p-4 bg-surface bg-card-gradient border border-subtle rounded-xl shadow-[var(--shadow-card)]">
-        <div className="flex-1 relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-tertiary" size={18} />
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 bg-white/30 backdrop-blur-md p-6 rounded-[32px] border border-white/60 shadow-sm">
+        <div className="md:col-span-3 relative group">
+          <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-text-tertiary group-focus-within:text-primary-indigo transition-colors" size={22} />
           <input 
             type="text" 
-            placeholder="Search by topic or title..." 
+            placeholder="Search by module topic or file title..." 
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full bg-surface-inset border border-default rounded-md pl-10 pr-4 h-[44px] text-primary text-[14px] focus:border-accent-glow focus:shadow-[var(--shadow-focus)] outline-none placeholder:text-tertiary"
+            className="w-full bg-white/60 border border-white/60 rounded-2xl pl-14 pr-6 h-[60px] text-text-primary text-[15px] font-black focus:bg-white focus:border-primary-indigo focus:shadow-2xl outline-none transition-all"
           />
         </div>
-        <div className="sm:w-48 relative">
-          <Filter className="absolute left-3 top-1/2 -translate-y-1/2 text-tertiary" size={18} />
+        <div className="relative group">
+          <Filter className="absolute left-5 top-1/2 -translate-y-1/2 text-text-tertiary group-focus-within:text-primary-indigo transition-colors" size={22} />
           <select 
             value={monthFilter}
             onChange={(e) => setMonthFilter(e.target.value)}
-            className="w-full bg-surface-inset border border-default rounded-md pl-10 pr-4 h-[44px] text-primary text-[14px] focus:border-accent-glow focus:shadow-[var(--shadow-focus)] outline-none appearance-none"
+            className="w-full bg-white/60 border border-white/60 rounded-2xl pl-14 pr-12 h-[60px] text-text-primary text-[15px] font-black focus:bg-white focus:border-primary-indigo outline-none appearance-none transition-all cursor-pointer shadow-sm"
           >
-            <option value="all">All Months</option>
+            <option value="all">Program Scope</option>
             {months.map(m => (
-              <option key={m} value={m}>Month {m}</option>
+              <option key={m} value={m}>Module 0{m}</option>
             ))}
           </select>
+          <ChevronDown className="absolute right-5 top-1/2 -translate-y-1/2 text-text-tertiary pointer-events-none" size={20} />
         </div>
       </div>
 
       {loading ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {[1,2,3,4,5,6].map(i => (
-            <div key={i} className="bg-surface/50 border border-subtle rounded-xl p-6 h-56 animate-pulse flex flex-col gap-4">
-              <div className="space-y-2">
-                <div className="h-3 w-24 bg-surface-raised rounded"></div>
-                <div className="h-6 w-48 bg-surface-raised rounded"></div>
-              </div>
-              <div className="flex-1 space-y-3 mt-4">
-                <div className="h-4 w-full bg-surface-raised rounded"></div>
-                <div className="h-4 w-full bg-surface-raised rounded"></div>
-              </div>
-            </div>
+            <div key={i} className="glass-plate h-64 animate-pulse"></div>
           ))}
         </div>
       ) : sortedGroups.length === 0 ? (
-        <div className="text-center py-20 border border-dashed border-subtle rounded-xl text-secondary">
-          <Book size={32} className="mx-auto mb-4 text-tertiary" />
-          <p>No materials found matching your filters.</p>
+        <div className="text-center py-32 bg-white/30 backdrop-blur-md border-4 border-dashed border-white/60 rounded-[48px] shadow-inner space-y-6">
+          <div className="w-32 h-32 bg-white rounded-[40px] flex items-center justify-center text-text-tertiary shadow-2xl mx-auto">
+            <Layers size={64} className="opacity-20" />
+          </div>
+          <div>
+            <h3 className="text-3xl font-display font-black text-text-primary">No assets found</h3>
+            <p className="text-lg text-text-secondary font-medium">Try adjusting your filters to find existing materials.</p>
+          </div>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {sortedGroups.map((group, idx) => (
-            <div key={idx} className="bg-surface bg-card-gradient border border-subtle rounded-xl p-6 shadow-[var(--shadow-card)] flex flex-col hover:border-accent-glow/50 transition-colors">
-              <div className="mb-4 pb-4 border-b border-subtle">
-                <div className="text-label text-tertiary uppercase tracking-widest mb-1">
-                  {new Date(group.session?.date).toLocaleDateString()} • Month {group.session?.month_number}
+            <div key={idx} className="glass-plate group !p-0 overflow-hidden flex flex-col hover:border-primary-indigo/30 transform hover:-translate-y-2 transition-all duration-500">
+              <div className="p-8 pb-6 bg-white/10 relative overflow-hidden">
+                <div className="absolute top-[-20px] left-[-20px] w-32 h-32 bg-primary-indigo/5 rounded-full blur-2xl group-hover:bg-primary-indigo/10 transition-all"></div>
+                
+                <div className="flex items-center justify-between mb-8">
+                  <div className="flex items-center gap-3 px-4 py-2 bg-white/80 backdrop-blur-sm rounded-2xl text-[12px] font-black text-primary-indigo uppercase tracking-widest shadow-sm font-mono border border-primary-indigo/10">
+                    <Calendar size={14} />
+                    {new Date(group.session?.date).toLocaleDateString('en-US', { month: 'short', day: '2-digit' }).toUpperCase()}
+                  </div>
+                  <span className="text-[10px] font-black text-white uppercase tracking-[0.2em] bg-text-primary px-3 py-2 rounded-xl shadow-lg">
+                    EXP-{group.session?.month_number}
+                  </span>
                 </div>
-                <h3 className="text-h3 text-primary line-clamp-2" title={group.session?.topic}>{group.session?.topic}</h3>
+
+                <h3 className="text-[28px] font-display font-black text-text-primary mb-2 line-clamp-2 min-h-[72px] leading-[1.1] group-hover:text-primary-indigo transition-colors tracking-tighter">
+                  {group.session?.topic}
+                </h3>
               </div>
               
-              <ul className="flex-1 space-y-4">
+              <div className="flex-1 p-6 space-y-4 bg-white/30 backdrop-blur-md">
                 {group.materials.map(m => (
-                  <li key={m.id}>
-                    <div className="flex items-start justify-between gap-2 group/item">
-                      <a href={m.url} target="_blank" rel="noopener noreferrer" className="group/link flex items-start gap-3 flex-1 min-w-0">
-                        <div className="mt-0.5 text-accent-glow group-hover/link:text-primary transition-colors shrink-0">
-                          {getIconForType(m.type)}
-                        </div>
-                        <div className="min-w-0">
-                          <p className="text-sm font-medium text-secondary group-hover/link:text-primary group-hover/link:underline transition-all line-clamp-1">{m.title}</p>
-                          {m.description && <p className="text-caption text-tertiary line-clamp-1 mt-0.5">{m.description}</p>}
-                        </div>
-                      </a>
-                      <button 
-                        onClick={() => setDeletingId(m.id)}
-                        className="opacity-0 group-hover/item:opacity-100 p-1.5 text-tertiary hover:text-danger hover:bg-danger-bg rounded-lg transition-all"
-                        title="Delete material"
-                      >
-                        <Trash2 size={14} />
-                      </button>
-                    </div>
-                  </li>
+                  <div key={m.id} className="relative group/item">
+                    <motion.a 
+                      whileHover={{ scale: 1.02, x: 8 }}
+                      href={m.url} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="flex items-center gap-4 p-5 bg-white/60 border border-white/60 hover:border-primary-indigo hover:bg-white rounded-[24px] transition-all shadow-sm"
+                    >
+                      <div className={`p-4 rounded-2xl shadow-inner transition-transform group-hover/item:rotate-12 ${
+                        m.type === 'recording' ? 'bg-rose-100 text-rose-500' : 
+                        m.type === 'slides' ? 'bg-amber-100 text-amber-500' : 
+                        'bg-sky-100 text-sky-500'
+                      }`}>
+                        {getIconForType(m.type)}
+                      </div>
+                      <div className="flex-1 overflow-hidden">
+                        <p className="text-[15px] font-black text-text-primary truncate group-hover/item:text-primary-indigo transition-colors">{m.title}</p>
+                        <p className={`text-[10px] font-black uppercase tracking-widest mt-1.5 px-2 py-0.5 rounded-full w-fit ${
+                          m.type === 'recording' ? 'bg-rose-500/10 text-rose-600' : 
+                          m.type === 'slides' ? 'bg-amber-500/10 text-amber-600' : 
+                          'bg-sky-500/10 text-sky-600'
+                        }`}>{m.type}</p>
+                      </div>
+                    </motion.a>
+                    <button 
+                      onClick={() => setDeletingId(m.id)}
+                      className="absolute -right-2 -top-2 w-10 h-10 bg-white border border-border-default text-text-tertiary hover:text-danger hover:border-danger hover:rotate-90 rounded-full flex items-center justify-center transition-all opacity-0 group-hover/item:opacity-100 shadow-xl z-20"
+                    >
+                      <Trash2 size={18} />
+                    </button>
+                  </div>
                 ))}
-              </ul>
+              </div>
             </div>
           ))}
         </div>
@@ -272,7 +312,7 @@ export default function Materials() {
       {/* Add Modal */}
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-void/80 backdrop-blur-sm p-4">
-          <div className="bg-surface bg-card-gradient border border-subtle rounded-xl p-8 max-w-md w-full shadow-2xl">
+          <div className="card-plate max-w-md w-full">
             <h3 className="text-h2 text-primary mb-6">Add Material</h3>
             <form onSubmit={handleAddMaterial} className="space-y-4">
               

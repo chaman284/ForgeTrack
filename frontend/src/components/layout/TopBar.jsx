@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAuth } from '../auth/AuthContext';
-import { Search } from 'lucide-react';
+import { Search, Bell, Menu } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
 
 export default function TopBar() {
@@ -21,33 +21,40 @@ export default function TopBar() {
   };
 
   return (
-    <header className="h-[72px] px-6 lg:px-12 flex items-center justify-between border-b border-subtle bg-canvas/50 backdrop-blur-sm sticky top-0 z-10">
-      <div className="flex items-center gap-4">
-        <div className="md:hidden flex items-center gap-2">
-          <div className="w-8 h-8 bg-surface-raised rounded-lg flex items-center justify-center border border-default">
-            <span className="text-accent-glow font-display font-bold">F</span>
+    <header className="h-[88px] px-8 flex items-center justify-between bg-transparent z-10">
+      <div className="flex items-center gap-6">
+        <button className="lg:hidden p-2 bg-white rounded-xl shadow-sm border border-border-subtle">
+          <Menu size={20} className="text-text-primary" />
+        </button>
+        <div>
+          <h2 className="text-xl font-display font-bold text-text-primary">{getBreadcrumb().split(' / ').pop()}</h2>
+          <div className="text-[11px] text-text-tertiary font-bold uppercase tracking-widest mt-0.5">
+            {getBreadcrumb()}
           </div>
-        </div>
-        <div className="text-body-sm text-tertiary font-medium hidden sm:block">
-          {getBreadcrumb()}
         </div>
       </div>
 
-      <div className="flex items-center gap-6">
+      <div className="flex items-center gap-4">
         <div className="relative hidden md:block">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-tertiary" size={16} />
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-text-tertiary" size={18} />
           <input 
             type="text" 
-            placeholder="Search..." 
-            className="w-[240px] bg-surface-inset border border-default rounded-full pl-9 pr-4 py-2 text-sm text-primary placeholder:text-tertiary focus:border-accent-glow focus:shadow-[var(--shadow-focus)] outline-none"
+            placeholder="Quick search..." 
+            className="w-[280px] bg-white border border-border-subtle rounded-2xl pl-12 pr-4 h-[48px] text-sm text-text-primary placeholder:text-text-tertiary focus:border-primary-indigo outline-none transition-all shadow-sm"
           />
         </div>
 
-        <div className="flex items-center gap-3 pl-6 border-l border-subtle">
+        <button className="p-3 bg-white rounded-2xl border border-border-subtle text-text-secondary hover:text-primary-indigo transition-colors shadow-sm relative">
+          <Bell size={20} />
+          <span className="absolute top-3 right-3 w-2 h-2 bg-danger rounded-full border-2 border-white"></span>
+        </button>
+
+        <div className="flex items-center gap-3 pl-4 border-l border-border-default ml-2">
           <div className="text-right hidden sm:block">
-            <div className="text-sm font-medium text-primary">{user?.display_name || 'User'}</div>
+            <div className="text-sm font-bold text-text-primary">{user?.display_name || 'User'}</div>
+            <div className="text-[10px] text-text-tertiary font-bold uppercase tracking-wider">Active Now</div>
           </div>
-          <div className="w-9 h-9 rounded-full bg-surface-raised border border-default flex items-center justify-center text-primary font-medium">
+          <div className="w-11 h-11 rounded-2xl bg-primary-soft border border-primary-indigo/20 flex items-center justify-center text-primary-indigo font-bold text-lg shadow-sm">
             {user?.display_name?.charAt(0)?.toUpperCase() || 'U'}
           </div>
         </div>
@@ -55,3 +62,4 @@ export default function TopBar() {
     </header>
   );
 }
+

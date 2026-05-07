@@ -62,7 +62,7 @@ export default function TodayAttendanceCard() {
 
   if (loading) {
     return (
-      <div className="bg-surface bg-card-gradient border border-subtle rounded-xl p-6 shadow-[var(--shadow-card)] h-full">
+    <div className="card-plate h-full flex flex-col">
         <h2 className="text-h3 text-secondary mb-4 flex items-center gap-2">
           <UserCheck size={20} className="text-tertiary" /> Today's Attendance
         </h2>
@@ -75,9 +75,9 @@ export default function TodayAttendanceCard() {
   }
 
   return (
-    <div className="bg-surface bg-card-gradient border border-subtle rounded-xl p-6 shadow-[var(--shadow-card)] h-full flex flex-col">
+    <div className="card-plate h-full flex flex-col">
       <h2 className="text-h3 text-secondary mb-6 flex items-center gap-2">
-        <UserCheck size={20} className="text-accent-glow" /> Today's Attendance
+        Today's Attendance
       </h2>
 
       {!data ? (

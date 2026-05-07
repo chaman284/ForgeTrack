@@ -1,29 +1,45 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { useAuth } from '../../components/auth/AuthContext';
 import TickerStrip from './dashboard/TickerStrip';
 import TodaySessionCard from './dashboard/TodaySessionCard';
 import TodayAttendanceCard from './dashboard/TodayAttendanceCard';
 import ProgramOverviewCard from './dashboard/ProgramOverviewCard';
 import RecentActivityCard from './dashboard/RecentActivityCard';
+import { LayoutDashboard, Zap } from 'lucide-react';
 
 export default function Dashboard() {
   const { user } = useAuth();
 
   return (
-    <div className="space-y-8 animate-in fade-in duration-500">
-      
+    <div className="space-y-8 animate-in fade-in duration-500 relative overflow-hidden">
+      {/* Decorative Floating Graphics */}
+      <motion.div 
+        animate={{ y: [0, 40, 0], x: [0, 20, 0] }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-0 right-10 w-32 h-32 bg-primary-indigo/10 rounded-full blur-3xl -z-10"
+      />
+      <motion.div 
+        animate={{ y: [0, -30, 0], scale: [1, 1.1, 1] }}
+        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute bottom-20 left-10 w-48 h-48 bg-accent/10 rounded-full blur-3xl -z-10"
+      />
+
       {/* Hero Section */}
-      <div>
-        <h1 className="text-display-hero text-primary font-display mb-2">
-          Welcome Back, {user?.display_name?.split(' ')[0] || 'Mentor'}
-        </h1>
-        <p className="text-body-lg text-secondary">
-          Here's what's happening with the Forge AI-ML Bootcamp today.
-        </p>
+      <div className="mb-12">
+        <div className="space-y-4">
+
+          <h1 className="super-title text-text-primary flex items-center gap-4">
+
+            Welcome Back, {user?.display_name?.split(' ')[0] || 'Mentor'}
+          </h1>
+          <p className="text-lg text-text-secondary max-w-xl font-medium leading-relaxed">
+            Here's what's happening with the Forge AI-ML Bootcamp today.
+          </p>
+        </div>
       </div>
 
-      {/* Ticker Strip */}
-      <TickerStrip />
+
 
       {/* Grid Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-6">

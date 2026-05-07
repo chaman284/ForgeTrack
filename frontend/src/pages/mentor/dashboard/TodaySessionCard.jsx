@@ -32,7 +32,7 @@ export default function TodaySessionCard() {
 
   if (loading) {
     return (
-      <div className="bg-surface bg-card-gradient border border-subtle rounded-xl p-6 shadow-[var(--shadow-card)] h-full">
+      <div className="card-plate h-full">
         <h2 className="text-h3 text-secondary mb-4 flex items-center gap-2">
           <Calendar size={20} className="text-tertiary" /> Today's Session
         </h2>
@@ -45,9 +45,9 @@ export default function TodaySessionCard() {
   }
 
   return (
-    <div className="bg-surface bg-card-gradient border border-subtle rounded-xl p-6 shadow-[var(--shadow-card)] h-full flex flex-col">
+    <div className="card-plate h-full flex flex-col">
       <h2 className="text-h3 text-secondary mb-6 flex items-center gap-2">
-        <Calendar size={20} className="text-accent-glow" /> Today's Session
+        Today's Session
       </h2>
 
       {session ? (

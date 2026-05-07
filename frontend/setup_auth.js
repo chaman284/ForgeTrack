@@ -28,11 +28,6 @@ async function setup() {
         id: '00000000-0000-0000-0000-000000000002',
         email: 'varun@theboringpeople.in',
         password: 'forge@123'
-      },
-      {
-        id: '00000000-0000-0000-0000-000000000003',
-        email: '4SH24CS001@forge.local',
-        password: 'forge@123'
       }
     ];
 

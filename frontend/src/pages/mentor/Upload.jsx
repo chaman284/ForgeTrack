@@ -621,7 +621,7 @@ export default function Upload() {
           </div>
           <div className="space-y-6">
             <div className="bg-surface border border-subtle rounded-xl p-6 shadow-[var(--shadow-card)]">
-              <h3 className="text-h3 text-primary mb-4 flex items-center gap-2"><Info size={18} className="text-accent-glow" /> Quick Guide</h3>
+              <h3 className="text-h3 text-primary mb-4 flex items-center gap-2">Quick Guide</h3>
               <ul className="space-y-4 text-sm text-secondary">
                 <li className="flex gap-3"><div className="w-5 h-5 rounded-full bg-surface-raised border border-default flex items-center justify-center shrink-0 mt-0.5 text-[10px]">1</div><span>AI detects names, USNs, and complex pivoted date layouts.</span></li>
                 <li className="flex gap-3"><div className="w-5 h-5 rounded-full bg-surface-raised border border-default flex items-center justify-center shrink-0 mt-0.5 text-[10px]">2</div><span>Supports P/A, TRUE/FALSE, 1/0, and Y/N markers.</span></li>
@@ -641,7 +641,7 @@ export default function Upload() {
           <div className="lg:col-span-3 space-y-6">
             <div className="bg-surface bg-card-gradient border border-subtle rounded-xl shadow-[var(--shadow-card)] overflow-hidden">
               <div className="p-6 border-b border-subtle flex justify-between items-center">
-                <h3 className="text-h3 text-primary flex items-center gap-2"><Sparkles size={20} className="text-accent-glow" /> AI Suggested Mapping</h3>
+                <h3 className="text-h3 text-primary flex items-center gap-2">AI Suggested Mapping</h3>
                 <div className="flex items-center gap-4"><span className="text-caption text-tertiary">Confidence Score: {Math.round((mappingResult?.confidence || 0.8) * 100)}%</span></div>
               </div>
               <div className="overflow-x-auto">
